@@ -120,7 +120,11 @@ class PlacesAutocomplete extends Component {
       item => item.index === index
     ).suggestion;
     this.setActiveItemAtIndex(index);
-    this.props.inputProps.onChange(activeName);
+
+    // The original library had this change but we
+    // do not want this beheavior and instead only want
+    // to change the input on a click or enter
+    // this.props.inputProps.onChange(activeName);
   }
 
   selectUserInputValue() {
