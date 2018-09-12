@@ -175,19 +175,19 @@ var PlacesAutocomplete = function (_Component) {
     }
   }, {
     key: 'handleEnterKey',
-    value: function handleEnterKey() {
+    value: function handleEnterKey(event) {
       var activeItem = this.getActiveItem();
       if (activeItem === undefined) {
-        this.handleEnterKeyWithoutActiveItem();
+        this.handleEnterKeyWithoutActiveItem(event);
       } else {
         this.selectAddress(activeItem.suggestion, activeItem.placeId);
       }
     }
   }, {
     key: 'handleEnterKeyWithoutActiveItem',
-    value: function handleEnterKeyWithoutActiveItem() {
+    value: function handleEnterKeyWithoutActiveItem(event) {
       if (this.props.onEnterKeyDown) {
-        this.props.onEnterKeyDown(this.props.inputProps.value);
+        this.props.onEnterKeyDown(this.props.inputProps.value, event);
         this.clearSuggestions();
       }
     }
@@ -230,7 +230,7 @@ var PlacesAutocomplete = function (_Component) {
       switch (event.key) {
         case 'Enter':
           event.preventDefault();
-          this.handleEnterKey();
+          this.handleEnterKey(event);
           break;
         case 'ArrowDown':
           event.preventDefault(); // prevent the cursor from moving
