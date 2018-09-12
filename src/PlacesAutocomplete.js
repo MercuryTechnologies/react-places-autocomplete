@@ -132,18 +132,18 @@ class PlacesAutocomplete extends Component {
     this.props.inputProps.onChange(this.state.userInputValue);
   }
 
-  handleEnterKey() {
+  handleEnterKey(event) {
     const activeItem = this.getActiveItem();
     if (activeItem === undefined) {
-      this.handleEnterKeyWithoutActiveItem();
+      this.handleEnterKeyWithoutActiveItem(event);
     } else {
       this.selectAddress(activeItem.suggestion, activeItem.placeId);
     }
   }
 
-  handleEnterKeyWithoutActiveItem() {
+  handleEnterKeyWithoutActiveItem(event) {
     if (this.props.onEnterKeyDown) {
-      this.props.onEnterKeyDown(this.props.inputProps.value);
+      this.props.onEnterKeyDown(this.props.inputProps.value, event);
       this.clearSuggestions();
     }
   }
@@ -183,7 +183,7 @@ class PlacesAutocomplete extends Component {
     switch (event.key) {
       case 'Enter':
         event.preventDefault();
-        this.handleEnterKey();
+        this.handleEnterKey(event);
         break;
       case 'ArrowDown':
         event.preventDefault(); // prevent the cursor from moving
