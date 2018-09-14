@@ -215,17 +215,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, {
 	    key: 'selectAddress',
-	    value: function selectAddress(address, placeId, e) {
+	    value: function selectAddress(address, placeId, e, method) {
 	      if (e !== undefined) {
 	        e.preventDefault();
 	      }
 	      this.clearSuggestions();
-	      this.handleSelect(address, placeId);
+	      this.handleSelect(address, placeId, e, method);
 	    }
 	  }, {
 	    key: 'handleSelect',
-	    value: function handleSelect(address, placeId) {
-	      this.props.onSelect ? this.props.onSelect(address, placeId) : this.props.inputProps.onChange(address);
+	    value: function handleSelect(address, placeId, event, method) {
+	      this.props.onSelect ? this.props.onSelect(address, placeId, event, method) : this.props.inputProps.onChange(address);
 	    }
 	  }, {
 	    key: 'getActiveItem',
@@ -260,7 +260,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (activeItem === undefined) {
 	        this.handleEnterKeyWithoutActiveItem(event);
 	      } else {
-	        this.selectAddress(activeItem.suggestion, activeItem.placeId);
+	        this.selectAddress(activeItem.suggestion, activeItem.placeId, event, 'enter');
 	      }
 	    }
 	  }, {
@@ -478,7 +478,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var suggestion = prediction.suggestion,
 	          placeId = prediction.placeId;
 	
-	      this.selectAddress(suggestion, placeId, event);
+	      this.selectAddress(suggestion, placeId, event, 'click');
 	      setTimeout(function () {
 	        _this3.mousedownOnSuggestion = false;
 	      });

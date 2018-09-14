@@ -97,17 +97,17 @@ class PlacesAutocomplete extends Component {
     });
   }
 
-  selectAddress(address, placeId, e) {
+  selectAddress(address, placeId, e, method) {
     if (e !== undefined) {
       e.preventDefault();
     }
     this.clearSuggestions();
-    this.handleSelect(address, placeId);
+    this.handleSelect(address, placeId, e, method);
   }
 
-  handleSelect(address, placeId) {
+  handleSelect(address, placeId, event, method) {
     this.props.onSelect
-      ? this.props.onSelect(address, placeId)
+      ? this.props.onSelect(address, placeId, event, method)
       : this.props.inputProps.onChange(address);
   }
 
@@ -137,7 +137,7 @@ class PlacesAutocomplete extends Component {
     if (activeItem === undefined) {
       this.handleEnterKeyWithoutActiveItem(event);
     } else {
-      this.selectAddress(activeItem.suggestion, activeItem.placeId);
+      this.selectAddress(activeItem.suggestion, activeItem.placeId, event, 'enter');
     }
   }
 
@@ -326,7 +326,7 @@ class PlacesAutocomplete extends Component {
 
   handleSuggestionClick(prediction, event) {
     const { suggestion, placeId } = prediction;
-    this.selectAddress(suggestion, placeId, event);
+    this.selectAddress(suggestion, placeId, event, 'click');
     setTimeout(() => {
       this.mousedownOnSuggestion = false;
     });
